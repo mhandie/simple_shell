@@ -1,38 +1,38 @@
-#include <stdio.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
 #include "main.h"
-#define BUFFER_SIZE 1024
+
 /**
- * main - built in tht exits the shell
- * input: pointers
+ * main - exit built-in, that exits the shell
+ * exit shell: this exits the shell
+ *
+ * Return: 0
  */
+
+void exit_shell(void)
+{
+printf("Exiting the shell...\n");
+exit(EXIT_SUCCESS);
+}
 int main(void)
 {
-char *input;
-size_t bufsize = BUFFER_SIZE;
-while (1)
+char input[100];
+int exit_requested = 0;
+while (!exit_requested)
 {
-input = (char *)malloc(bufsize * sizeof(char));
-if (input == NULL)
-{
-perror("malloc error");
-exit(EXIT_FAILURE);
-}
-printf("($) ");
-getline(&input, &bufsize, stdin);
-
+printf("Shell > ");
+fgets(input, sizeof(input), stdin);
 input[strcspn(input, "\n")] = '\0';
-
 if (strcmp(input, "exit") == 0)
 {
-free(input);
-break;
+exit_requested = 1;
 }
-printf("Executing command: %s\n", input);
-
-free(input);
+else
+{
+printf("Command not recognized. Enter 'exit' to exit the shell.\n");
 }
+}
+exit_shell();
 return (0);
 }
-
