@@ -28,6 +28,10 @@ int close(int fd);
 
 int closedir(DIR *dirp);
 
+extern char **environ;
+
+void print_environment(void);
+
 int execve(const char *pathname, char *const argv[], char *const envp[]);
 
 void exit(int status);
